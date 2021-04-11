@@ -1063,6 +1063,13 @@ void systemResetCallback()
   isResetting = false;
 }
 
+
+void systemStringCallback(char * s)
+{
+  Firmata.sendString(s);
+}
+
+
 void setup()
 {
   Firmata.setFirmwareVersion(FIRMATA_FIRMWARE_MAJOR_VERSION, FIRMATA_FIRMWARE_MINOR_VERSION);
@@ -1075,6 +1082,8 @@ void setup()
   Firmata.attach(SET_DIGITAL_PIN_VALUE, setPinValueCallback);
   Firmata.attach(START_SYSEX, sysexCallback);
   Firmata.attach(SYSTEM_RESET, systemResetCallback);
+
+  Firmata.attach(STRING_DATA, systemStringCallback);
 
   // to use a port other than Serial, such as Serial1 on an Arduino Leonardo or Mega,
   // Call begin(baud) on the alternate serial port and pass it to Firmata to begin like this:
